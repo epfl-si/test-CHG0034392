@@ -25,8 +25,8 @@ function agentThatConnectsTo(connectTo) {
     })
 }
 
-let _oldAgent = agentThatConnectsTo('128.178.222.7');
-let _newAgent = agentThatConnectsTo('128.178.222.108');
+let _oldAgent = agentThatConnectsTo('128.178.222.108');
+let _newAgent = agentThatConnectsTo('128.178.222.7');
 
 function gotOld(uri) { return _got(_oldAgent, '_oldAgent', uri); }
 function gotNew(uri) { return _got(_newAgent, '_newAgent', uri); }
