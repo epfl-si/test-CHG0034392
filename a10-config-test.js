@@ -147,9 +147,19 @@ describe('New A10 config @ 128.178.222.7', async function() {
            await assertServesAsBefore('/cgi-bin/new/switch2003?name=pierre+etienne');
            await assertServesAsBefore('/cgi-bin/new/csoldap?server=ldap.epfl.ch&sciper=104359');
        })
-    it('serves /css as before');
-    it('serves /errors as before');
-    it('serves /img and /images as before');
+    it('serves /css as before', async function() {
+        await assertServesAsBefore('/css/syntaxhighlighter/shCore.css');
+    });
+
+    it('serves /errors as before', async function() {
+        const res = await assertServesAsBefore('/errors/404.fr.shtml');
+        assert.equal(200, res.statusCode);
+    });
+
+    it('serves /img and /images as before', async function() {
+        await assertServesAsBefore('/img/arrow-menu-on.gif');
+        await assertServesAsBefore('/images/epfl_logo.gif');
+    });
 
     it('serves /javascript-help and friends same as before',
        async function() {
@@ -160,7 +170,9 @@ describe('New A10 config @ 128.178.222.7', async function() {
            await assertServesAsBefore('/javascript-help.fr.shtml');
        });
 
-    it('serves /js as before');
+    it('serves /js as before', async function() {
+        await assertServesAsBefore('/js/syntaxhighlighter/shCore.js?_=1543939081598');
+    });
 
     it('serves /navigate and friends same as before',
        async function() {
@@ -171,7 +183,14 @@ describe('New A10 config @ 128.178.222.7', async function() {
            await assertServesAsBefore('/navigate.fr.shtml');
        });
 
-    it('serves /organigrammes as before');
-    it('serves /templates as before');
-    it('serves /tools as before');
+    it('serves /organigrammes as before', async function() {
+        await assertServesAsBefore('/organigrammes/exportchart.do?acronym=STI&lang=fr');
+    });
+
+    it('serves /templates as before', async function() {
+        await assertServesAsBefore('/templates/schools/sti.html');
+    });
+    it('serves /tools as before', async function() {
+        await assertServesAsBefore('/tools/label.php?FG=FFFFFF&BG=336699&label=LPHE%20-%20Publications%20-%202000&s=14');
+    });
 });
