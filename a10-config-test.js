@@ -106,10 +106,22 @@ describe('New A10 config @ 128.178.222.7', async function() {
         await assertServesAsBefore('/_vti_bin');
     });
 
-    it('serves /javascript-help and friends out of WordPress',
+    it('serves /javascript-help and friends same as before',
        async function() {
-        const res = await assertDoesNotServeAsBefore('/javascript-help');
-        assertLooksLikeWordpressResponse(res);
+           await assertServesAsBefore('/javascript-help');
+           await assertServesAsBefore('/javascript-help.en');
+           await assertServesAsBefore('/javascript-help.en.shtml');
+           await assertServesAsBefore('/javascript-help.fr');
+           await assertServesAsBefore('/javascript-help.fr.shtml');
+       });
+
+    it('serves /navigate and friends same as before',
+       async function() {
+           await assertServesAsBefore('/navigate');
+           await assertServesAsBefore('/navigate.en');
+           await assertServesAsBefore('/navigate.en.shtml');
+           await assertServesAsBefore('/navigate.fr');
+           await assertServesAsBefore('/navigate.fr.shtml');
        });
 
     it('serves /?foo7 out of WordPress', async function() {
