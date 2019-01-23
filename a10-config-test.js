@@ -103,39 +103,6 @@ describe('New A10 config @ 128.178.222.7', async function() {
         assertLooksLikeWordpressResponse(res);
     });
 
-    it('serves _vti_bin the same as before', async function() {
-        await assertServesAsBefore('/_vti_bin/');
-        await assertServesAsBefore('/_vti_bin/?zonzon');
-        await assertServesAsBefore('/_vti_bin');
-    });
-
-    it('serves /javascript-help and friends same as before',
-       async function() {
-           await assertServesAsBefore('/javascript-help');
-           await assertServesAsBefore('/javascript-help.en');
-           await assertServesAsBefore('/javascript-help.en.shtml');
-           await assertServesAsBefore('/javascript-help.fr');
-           await assertServesAsBefore('/javascript-help.fr.shtml');
-       });
-
-    it('serves /accessibility and friends same as before',
-       async function() {
-           await assertServesAsBefore('/accessibility');
-           await assertServesAsBefore('/accessibility.en');
-           await assertServesAsBefore('/accessibility.en.shtml');
-           await assertServesAsBefore('/accessibility.fr');
-           await assertServesAsBefore('/accessibility.fr.shtml');
-       });
-
-    it('serves /navigate and friends same as before',
-       async function() {
-           await assertServesAsBefore('/navigate');
-           await assertServesAsBefore('/navigate.en');
-           await assertServesAsBefore('/navigate.en.shtml');
-           await assertServesAsBefore('/navigate.fr');
-           await assertServesAsBefore('/navigate.fr.shtml');
-       });
-
     it('serves /?foo7 out of WordPress', async function() {
         const res = await assertDoesNotServeAsBefore('/?foo7');
         assertLooksLikeWordpressResponse(res);
@@ -149,11 +116,22 @@ describe('New A10 config @ 128.178.222.7', async function() {
         const res = await assertServesAsBefore('/index.fr.html');
         assertLooksLikeWordpressResponse(res);
     });
-    it('serves /navigate and friends same as before', async function() {
-        await assertServesAsBefore('/navigate');
-        await assertServesAsBefore('/navigate.en.shtml');
-        await assertServesAsBefore('/navigate.fr.shtml');
+
+    // Straight from https://docs.google.com/document/d/1O77LvuFBOhoUjNBYLuMQJZnojvWGOp9_KquZ0lz0tGw/edit#bookmark=id.3s5lrsb38jz3 :
+    it('serves _vti_bin the same as before', async function() {
+        await assertServesAsBefore('/_vti_bin/');
+        await assertServesAsBefore('/_vti_bin/?zonzon');
+        await assertServesAsBefore('/_vti_bin');
     });
+
+    it('serves /accessibility and friends same as before',
+       async function() {
+           await assertServesAsBefore('/accessibility');
+           await assertServesAsBefore('/accessibility.en');
+           await assertServesAsBefore('/accessibility.en.shtml');
+           await assertServesAsBefore('/accessibility.fr');
+           await assertServesAsBefore('/accessibility.fr.shtml');
+       });
     it('serves /cgi-bin/ out of WordPress', async function() {
         const res1 = await assertDoesNotServeAsBefore('/cgi-bin'),
               res2 = await assertDoesNotServeAsBefore('/cgi-bin/');
@@ -169,4 +147,31 @@ describe('New A10 config @ 128.178.222.7', async function() {
            await assertServesAsBefore('/cgi-bin/new/switch2003?name=pierre+etienne');
            await assertServesAsBefore('/cgi-bin/new/csoldap?server=ldap.epfl.ch&sciper=104359');
        })
+    it('serves /css as before');
+    it('serves /errors as before');
+    it('serves /img and /images as before');
+
+    it('serves /javascript-help and friends same as before',
+       async function() {
+           await assertServesAsBefore('/javascript-help');
+           await assertServesAsBefore('/javascript-help.en');
+           await assertServesAsBefore('/javascript-help.en.shtml');
+           await assertServesAsBefore('/javascript-help.fr');
+           await assertServesAsBefore('/javascript-help.fr.shtml');
+       });
+
+    it('serves /js as before');
+
+    it('serves /navigate and friends same as before',
+       async function() {
+           await assertServesAsBefore('/navigate');
+           await assertServesAsBefore('/navigate.en');
+           await assertServesAsBefore('/navigate.en.shtml');
+           await assertServesAsBefore('/navigate.fr');
+           await assertServesAsBefore('/navigate.fr.shtml');
+       });
+
+    it('serves /organigrammes as before');
+    it('serves /templates as before');
+    it('serves /tools as before');
 });
