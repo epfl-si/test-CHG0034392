@@ -140,6 +140,11 @@ describe('New A10 config @ 128.178.222.7', async function() {
         const res = await assertServesAsBefore('/index.fr.html');
         assertLooksLikeWordpressResponse(res);
     });
+    it('serves /navigate and friends same as before', async function() {
+        await assertServesAsBefore('/navigate');
+        await assertServesAsBefore('/navigate.en.shtml');
+        await assertServesAsBefore('/navigate.fr.shtml');
+    });
     it('serves /cgi-bin/ out of WordPress', async function() {
         const res1 = await assertDoesNotServeAsBefore('/cgi-bin'),
               res2 = await assertDoesNotServeAsBefore('/cgi-bin/');
