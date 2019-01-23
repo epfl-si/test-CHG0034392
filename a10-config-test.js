@@ -59,21 +59,23 @@ async function _got(agent, nameForDebug, uri) {
 }
 
 async function assertServesAsBefore (uri) {
-    const oldReq = await gotOld(uri),
-          newReq = await gotNew(uri);
-    if (stringSimilarity.compareTwoStrings(oldReq.body, newReq.body) < 0.95) {
-        assert.equal(oldReq.body, newReq.body);  // For the diff
+    const oldResponse = await gotOld(uri),
+          newResponse = await gotNew(uri);
+    assert.equal(oldResponse.statusCode, newResponse.statusCode);
+    assert.equal(oldResponse.headers.location, newResponse.headers.location);
+    if (stringSimilarity.compareTwoStrings(oldResponse.body, newResponse.body) < 0.95) {
+        assert.equal(oldResponse.body, newResponse.body);  // For the diff
     }
-    return newReq;
+    return newResponse;
 }
 
 async function assertDoesNotServeAsBefore (uri) {
-    const oldReq = await gotOld(uri),
-          newReq = await gotNew(uri);
+    const oldResponse = await gotOld(uri),
+          newResponse = await gotNew(uri);
     const similarity = stringSimilarity.compareTwoStrings(
-        oldReq.body, newReq.body);
+        oldResponse.body, newResponse.body);
     assert(similarity < 0.8, 'similarity is ' + similarity);
-    return newReq;
+    return newResponse;
 }
 
 function assertLooksLikeWordpressResponse(res) {
@@ -116,5 +118,8 @@ describe('New A10 config @ 128.178.222.7', async function() {
         assertLooksLikeWordpressResponse(res1);
         assertLooksLikeWordpressResponse(res2);
     });
-    it('serves /cgi-bin/csoldap out of the original Homepage');
+    it('serves /cgi-bin/csoldap out of the original Homepage',
+       async function() {
+           await assertServesAsBefore('/cgi-bin/csoldap?sciper=289976');
+       });
 });
