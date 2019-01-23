@@ -80,7 +80,10 @@ async function assertDoesNotServeAsBefore (uri) {
 
 function assertLooksLikeWordpressResponse(res) {
     expect(res.body).to.not.include('<script type="text/javascript" src="/public/hp2013/');
-    if (res.statusCode === 403 && res.body.includes('<h1 class="page-title">Access Denied</h1>')) {
+    if (res.statusCode === 301) {
+        // Redirects are hard to figure out. Trust the Varnish version
+        expect(res.headers.via).to.include('Varnish/5.1');
+    } else if (res.statusCode === 403 && res.body.includes('<h1 class="page-title">Access Denied</h1>')) {
         // Weird /global/403.php gonna weird /global/403.php
     } else {
         expect(res.body).to.not.include('scripts/epfl-jquery-built.js');
