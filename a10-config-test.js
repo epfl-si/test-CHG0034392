@@ -111,8 +111,10 @@ describe('New A10 config @ 128.178.222.7', async function() {
         assertLooksLikeWordpressResponse(res);
     });
     it('serves /cgi-bin/ out of WordPress', async function() {
-        const res = await assertDoesNotServeAsBefore('/cgi-bin/');
-        assertLooksLikeWordpressResponse(res);
+        const res1 = await assertDoesNotServeAsBefore('/cgi-bin'),
+              res2 = await assertDoesNotServeAsBefore('/cgi-bin/');
+        assertLooksLikeWordpressResponse(res1);
+        assertLooksLikeWordpressResponse(res2);
     });
     it('serves /cgi-bin/csoldap out of the original Homepage');
 });
