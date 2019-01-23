@@ -1,7 +1,7 @@
 'use strict';
 
-require('mocha');
-const assert = require('assert'),
+const assert = require('chai').assert,
+      expect = require('chai').expect,
       got = require('got'),
       http = require('http'),
       net = require('net'),
@@ -69,7 +69,8 @@ describe('New A10 config @ 128.178.222.7', async function() {
     });
 
     it('serves /?foo=bar out of WordPress', async function() {
-        await assertDoesNotServeAsBefore('/?foo=bar');
+        const res = await assertDoesNotServeAsBefore('/?foo=bar');
+        expect(res.body).to.not.include('<script type="text/javascript" src="/public/hp2013/');
     });
     it('serves /cgi-bin out of WordPress');
     it('serves /cgi-bin out of WordPress');
