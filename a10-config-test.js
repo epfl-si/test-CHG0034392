@@ -88,6 +88,12 @@ describe('New A10 config @ 128.178.222.7', async function() {
         let res = await assertServesAsBefore('/');
         assertLooksLikeWordpressResponse(res);
     });
+
+    it('serves www.epfl.ch/zonk out of WordPress', async function() {
+        let res = await assertDoesNotServeAsBefore('/zonk');
+        assertLooksLikeWordpressResponse(res);
+    });
+
     it('serves _vti_bin the same as before', async function() {
         await assertServesAsBefore('/_vti_bin/');
         await assertServesAsBefore('/_vti_bin/?zonzon');
