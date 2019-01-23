@@ -126,4 +126,9 @@ describe('New A10 config @ 128.178.222.7', async function() {
        async function() {
            await assertServesAsBefore('/cgi-bin/csoldap?sciper=289976');
        });
+    it('serves /cgi-bin/new as before',
+       async function() {
+           await assertServesAsBefore('/cgi-bin/new/switch2003?name=pierre+etienne');
+           await assertServesAsBefore('/cgi-bin/new/csoldap?server=ldap.epfl.ch&sciper=104359');
+       })
 });
