@@ -118,6 +118,15 @@ describe('New A10 config @ 128.178.222.7', async function() {
            await assertServesAsBefore('/javascript-help.fr.shtml');
        });
 
+    it('serves /accessibility and friends same as before',
+       async function() {
+           await assertServesAsBefore('/accessibility');
+           await assertServesAsBefore('/accessibility.en');
+           await assertServesAsBefore('/accessibility.en.shtml');
+           await assertServesAsBefore('/accessibility.fr');
+           await assertServesAsBefore('/accessibility.fr.shtml');
+       });
+
     it('serves /navigate and friends same as before',
        async function() {
            await assertServesAsBefore('/navigate');
